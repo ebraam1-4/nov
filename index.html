@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إلى رفيقة الروح | 11/11</title>
-    <!-- استيراد خطوط عربية فخمة مثل Amiri و Cairo -->
+    <!-- خطوط عربية فخمة Amiri و Cairo -->
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -23,6 +23,52 @@
             justify-content: center;
             align-items: center;
             position: relative;
+        }
+
+        /* شاشة الترحيب الافتتاحية */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050814;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        .welcome-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .welcome-btn {
+            background: linear-gradient(135deg, #f43f5e, #be123c);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 18px;
+            font-family: 'Amiri', serif;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(244, 63, 94, 0.5);
+            transition: all 0.3s ease;
+            animation: pulseBtn 2s infinite;
+        }
+
+        .welcome-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px rgba(244, 63, 94, 0.8);
+        }
+
+        @keyframes pulseBtn {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+            100% { transform: scale(1); }
         }
 
         /* خلفية النجوم المتحركة */
@@ -53,15 +99,35 @@
             position: relative;
             z-index: 10;
             width: 90%;
-            max-width: 650px;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            max-width: 750px;
+            background: rgba(15, 23, 42, 0.82);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 215, 0, 0.25);
             border-radius: 20px;
             padding: 40px 30px;
-            box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+            box-shadow: 0 0 45px rgba(139, 92, 246, 0.2);
             text-align: center;
-            margin: 20px 0;
+            margin: 30px 0;
+        }
+
+        /* زر التحكم في الموسيقى */
+        .music-control {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 20;
+        }
+
+        .music-control:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         /* أيقونة القلب النجمي فوق */
@@ -69,7 +135,7 @@
             font-size: 40px;
             color: #f43f5e;
             animation: pulse 2s infinite;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         @keyframes pulse {
@@ -82,31 +148,50 @@
             font-family: 'Amiri', serif;
             font-size: 28px;
             color: #fbbf24;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             letter-spacing: 1px;
         }
 
-        /* صندوق الرسالة الفصحى */
+        /* عداد الأيام (Love Timer) */
+        .love-counter {
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            color: #94a3b8;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 15px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .love-counter span {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        /* صندوق الرسالة الفصحى المطورة الكبيرة */
         .message-box {
             font-family: 'Amiri', serif;
-            font-size: 20px;
-            line-height: 2.2;
+            font-size: 19px;
+            line-height: 2.3;
             color: #e2e8f0;
             text-align: justify;
             white-space: pre-line;
-            min-height: 220px;
+            min-height: 340px;
             border-right: 2px solid #fbbf24;
             padding-right: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
-        /* توقيع أو جملة الختام */
+        /* توقيع الختام */
         .signature {
             font-family: 'Amiri', serif;
-            font-size: 22px;
+            font-size: 21px;
             color: #f43f5e;
-            margin-top: 20px;
+            margin-top: 15px;
             font-weight: bold;
+            line-height: 1.8;
         }
 
         /* زر التفاعل */
@@ -115,7 +200,7 @@
             color: white;
             border: none;
             padding: 12px 30px;
-            font-size: 16px;
+            font-size: 15px;
             font-family: 'Cairo', sans-serif;
             border-radius: 50px;
             cursor: pointer;
@@ -146,16 +231,40 @@
 </head>
 <body>
 
+    <!-- شاشة الترحيب قبل الدخول للموقع -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div style="text-align: center; padding: 20px;">
+            <div style="font-size: 50px; margin-bottom: 20px;">✨</div>
+            <h2 style="font-family: 'Amiri', serif; color: #fbbf24; font-size: 24px; margin-bottom: 20px;">هناك رسالة كونية خصيصاً لكِ...</h2>
+            <button class="welcome-btn" onclick="openSite()">اضغطي هنا لفتح النبضة ❤️</button>
+        </div>
+    </div>
+
+    <!-- زر تشغيل الموسيقى الخلفية -->
+    <button class="music-control" id="musicBtn" onclick="toggleMusic()">🎵 تشغيل أغنية: أنا لك على طول</button>
+    
+    <!-- عنصر صوتي يضم أغنية "أنا لك على طول" لعبد الحليم حافظ -->
+    <audio id="bgMusic" loop>
+        <source src="https://archive.org/download/AbdelHalimHafezAnaLakAlaToul/Abdel%20Halim%20Hafez%20-%20Ana%20Lak%20Ala%20Toul.mp3" type="audio/mp3">
+    </audio>
+
     <!-- خلفية النجوم -->
     <div class="stars" id="starsContainer"></div>
 
     <div class="container">
         <div class="heart-icon">🌌</div>
-        <h1>إلى رفيقَةَ الروحِ ونبضَ القلبِ</h1>
+        <h1>إلى رفيقَةَ الروحِ، ونبضَ القلبِ</h1>
         
+        <!-- عداد زمني يحسب الأيام من 7 نوفمبر 2025 -->
+        <div class="love-counter">
+            معاً منذ: <span id="daysCount">0</span> يوماً من الحب والسكينة ✨
+        </div>
+
         <div class="message-box" id="typingText"></div>
 
-        <div class="signature">أحبُّكِ بكلِّ ما تعنيه هذه الكلمة من نبضٍ ومعنى. ❤️</div>
+        <div class="signature">
+            أحبُّكِ بكلِّ ما تعنيه هذه الكلمة من نبضٍ ومعنى، وكلّ سنة وأنتِ دنيتي وسبب سعادتي. ❤️✨
+        </div>
 
         <button class="love-btn" onclick="createHearts()">أرسلي نبضة قلب ✨</button>
     </div>
@@ -163,7 +272,7 @@
     <script>
         // توليد النجوم في الخلفية عشوائياً
         const starsContainer = document.getElementById('starsContainer');
-        const numberOfStars = 120;
+        const numberOfStars = 130;
 
         for (let i = 0; i < numberOfStars; i++) {
             const star = document.createElement('div');
@@ -177,17 +286,29 @@
             starsContainer.appendChild(star);
         }
 
-        // نص الرسالة الفصحى
-        const message = `في هذا اليوم المميّز، الحادي عشر من نوفمبر، أقف معترِفاً بأنّكِ أجملُ هديةٍ أهداها القدرُ لقَلبي. 
+        // حساب الأيام من تاريخ بداية العلاقة (7 نوفمبر 2025)
+        const startDate = new Date('2025-11-07T00:00:00');
+        const today = new Date();
+        const diffTime = Math.abs(today - startDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        document.getElementById('daysCount').innerText = diffDays;
 
-حين أنظرُ إليكِ، أرى الحياةَ بكلِّ ما فيها من ضياءٍ سكينة؛ فوُجودكِ بجانبي هو المعنى الحقيقيُّ للاطمئنان. لم تكوني يوماً صدفةً في عابري أيّامي، بل كنتِ القدرَ الجميلَ الذي استقرَّ في أعماقي ليُزهرَ عمري كله.
+        // الرسالة الموسعة والمكتوبة بأعمق وأجمل معاني اللغة العربية الفصحى
+        const message = `في هذا اليوم المميّز، الحادي عشر من نوفمبر، أقف معترِفاً أمام عينيكِ، ومردّداً بكلّ ما تحمله روحي من مشاعر: بأنّكِ أجملُ هديةٍ أهداها القدرُ لقَلبي، وأثمنُ عطايا العمرِ على الإطلاق.
 
-عاهدتُ قلبي أن أبقى لكِ السندَ والأمان، وأن أُحيطكِ دائماً بعشقٍ لا ينضب ولا يتغيّر.`;
+حين أنظرُ إليكِ، لا أرى مجرد وجهٍ جميل، بل أرى الحياةَ بكلِّ ما فيها من ضياءٍ وطمأنينة؛ فوُجودكِ بجانبي هو المعنى الحقيقيُّ للسكن والاحتواء. لم تكوني يوماً صدفةً عابرةً في أيّامي، بل كنتِ القدرَ الجميلَ والنورَ الذي استقرَّ في أعماقي ليُزهرَ أيامي ويهدئ روعها.
 
-        // تأثير الكتابة التلقائية (Typing Effect)
+عاهدتُ قلبي، وما كنتُ لآكُل عهدي أبداً، أن أبقى لكِ السندَ الذي لا يميل، والأمانَ الذي لجوءكِ إليه حمايةٌ لكل خوف. أحيطكِ دائماً بعشقٍ لا ينضب ولا يتغيّر، بل يزداد عمقاً ورسوخاً كلما مرّت بينا الأيام والليالي. أنتِ لستِ فقط جزءاً من أيّامي، بل أنتِ الدارُ والوطن الذي ألوذ إليه كلما ضاقت بي سبل الحياة، ولقاؤكِ هو عيدي الذي لا ينتهي.
+
+أعلمُ أن الحروف أحياناً تعجز عن حمل ما يجيش في الصدر، وأن الكلمات تقف خجولةً أمام عظمة ما أكنّه لكِ في قلبي، لكنّني أضع بين يديْكِ هذه السطور عهداً وميثاقاً. 
+
+دُمتِ لي عمراً لا ينتهي، ودِمتُ لكِ نبضاً لا يتوقف عن حبكِ، وصحبةً أبديةً لا تعرف الفراق.`;
+
         let i = 0;
-        const speed = 40; // سرعة ظهور الحروف بالمللي ثانية
+        const speed = 30; // سرعة الكتابة لتكون مناسبة لطول النص
         const textElement = document.getElementById('typingText');
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
 
         function typeWriter() {
             if (i < message.length) {
@@ -197,14 +318,40 @@
             }
         }
 
-        // تشغيل تأثير الكتابة بعد تحميل الصفحة بـ ثانية
-        window.onload = () => {
-            setTimeout(typeWriter, 1000);
-        };
+        // فتح الموقع عند الضغط على زر الترحيب وتشغيل الأغنية تلقائياً مع بدء الكتابة
+        function openSite() {
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            welcomeScreen.classList.add('fade-out');
+            
+            // محاولة تشغيل الأغنية مع فتح الشاشة
+            music.play().then(() => {
+                musicBtn.innerText = '🔇 إيقاف الأغنية';
+                isPlaying = true;
+            }).catch(error => {
+                console.log("Autoplay prevented:", error);
+            });
+
+            setTimeout(typeWriter, 800);
+        }
+
+        // التحكم في تشغيل وإيقاف الموسيقى من الزر العلوي
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicBtn.innerText = '🎵 تشغيل أغنية: أنا لك على طول';
+                isPlaying = false;
+            } else {
+                music.play();
+                musicBtn.innerText = '🔇 إيقاف الأغنية';
+                isPlaying = true;
+            }
+        }
 
         // وظيفة ظهور قلوب عند الضغط على الزر
         function createHearts() {
-            for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
                 const heart = document.createElement('div');
                 heart.classList.add('floating-heart');
                 heart.innerHTML = '❤️';
